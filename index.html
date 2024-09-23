@@ -3,25 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Wedding Invitation</title>
+    <title>3D Model Viewer</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
-        #canvas-container { margin: 20px auto; width: 500px; height: 500px; }
-        #qr-code { margin-top: 20px; }
-        #savedate{ margin-top: 20px; }
+        body { margin: 0; }
+        canvas { display: block; }
     </style>
-    <script src="script.js"></script>
 </head>
-<body style="background-color:powderblue;">
-    <h1>Welcome to Our 3D Wedding Invitation</h1>
-    <img id="savedate" src="savethedate.png" alt="Save the date Code" width="200" height="200">
+<body>
+  <h>Hello</h>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/loaders/GLTFLoader.js';
 
-    <div id="canvas-container"></div>
-    
-    <h2>Scan the QR code to view the invitation</h2>
-    <img id="qr-code" src="qr_code.png" alt="Save the date Code" width="200" height="200">
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-    <script src="script.js"></script>
+        // Add a basic light to the scene
+        const light = new THREE.AmbientLight(0x404040); // soft white light
+        scene.add(light);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5).normalize();
+        scene.add(directionalLight);
+
+        // Load the GLB model
+        const loader = new GLTFLoader();
+        loader.load('sample.glb', function (gltf) {
+            scene.add(gltf.scene);
+            gltf.scene.position.set(0, -1, 0); // Adjust the model position as needed
+            gltf.scene.scale.set(1, 1, 1); // Scale the model
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Set the camera position
+        camera.position.z = 5;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+    <h>end</h>
 </body>
 </html>
