@@ -13,7 +13,7 @@ scene.add(light);
 
 // Load 3D model (assuming .obj format)
 const loader = new THREE.OBJLoader();
-loader.load('models/your_model.obj', function (obj) {
+loader.load('your_model.obj', function (obj) {
     scene.add(obj);
     obj.position.y = -95;  // Adjust position as needed
     animate();
