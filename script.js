@@ -7,13 +7,13 @@ renderer.setSize(500, 500);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 // Lighting
-const light = new THREE.DirectionalLight(0x000000, 1);
+const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 1, 1).normalize();
 scene.add(light);
 
 // Load 3D model (assuming .obj format)
 const loader = new THREE.OBJLoader();
-loader.load('your_model.obj', function (obj) {
+loader.load('models/your_model.obj', function (obj) {
     scene.add(obj);
     obj.position.y = -95;  // Adjust position as needed
     animate();
