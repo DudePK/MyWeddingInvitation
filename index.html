@@ -10,28 +10,27 @@
     </style>
 </head>
 <body>
-  <h>Hello</h>
-    <script type="module">
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/loaders/GLTFLoader.js';
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
+    <script>
         // Set up the scene, camera, and renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // Add a basic light to the scene
-        const light = new THREE.AmbientLight(0x404040); // soft white light
+        var light = new THREE.AmbientLight(0x404040); // soft white light
         scene.add(light);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 10, 7.5).normalize();
         scene.add(directionalLight);
 
         // Load the GLB model
-        const loader = new GLTFLoader();
-        loader.load('sample.glb', function (gltf) {
+        var loader = new THREE.GLTFLoader();
+        loader.load('SampleBee.glb', function (gltf) {
             scene.add(gltf.scene);
             gltf.scene.position.set(0, -1, 0); // Adjust the model position as needed
             gltf.scene.scale.set(1, 1, 1); // Scale the model
@@ -50,12 +49,11 @@
         animate();
 
         // Handle window resizing
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function () {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
         });
     </script>
-    <h>end</h>
 </body>
 </html>
