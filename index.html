@@ -10,7 +10,9 @@
     </style>
 </head>
 <body>
+    <!-- Load three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+    <!-- Load GLTFLoader -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
     <script>
@@ -28,8 +30,8 @@
         directionalLight.position.set(5, 10, 7.5).normalize();
         scene.add(directionalLight);
 
-        // Load the GLB model
-        var loader = new THREE.GLTFLoader();
+        // Load the GLB model using GLTFLoader
+        var loader = new THREE.GLTFLoader(); // GLTFLoader is global here, not directly under THREE
         loader.load('SampleBee.glb', function (gltf) {
             scene.add(gltf.scene);
             gltf.scene.position.set(0, -1, 0); // Adjust the model position as needed
